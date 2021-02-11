@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="db.properties"></properties>
+
+    <!-- 两种别名，扫描包可以使用@Alias() -->
+    <typeAliases>
+<!--        <typeAlias alias="User" type="com.wzq.pojo.User"/>-->
+        <package name="com.wzq.pojo"/>
+    </typeAliases>
+
+
+    <!-- 默认环境为开发环境 -->
+    <environments default="development">
+
+        <!-- 测试环境 -->
+        <environment id="development">
+            <!-- 事务管理有两种类型 : jdbc 和 managed, managed在spring 中不使用 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源还有 dbcp c3po druid, 功能都是连接数据库 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+        <!-- 测试环境 -->
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!-- 每个Mapper.xml都要在Mybatis核心配置文件mybatis-config.xml中注册！-->
+    <mappers>
+        <mapper resource="com/wzq/dao/UserMapper.xml" />
+    </mappers>
+
+</configuration>

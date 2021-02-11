@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 绑定一个dao接口，相当于实现类 -->
+<mapper namespace="com.wzq.dao.UserMapper">
+
+    <select id="getUserList" resultType="User">
+        select * from user;
+    </select>
+
+    <select id="getUserListLike" resultType="User">
+        select * from user where username like "%"#{name}"%";
+    </select>
+
+    <select id="getUesrById" parameterType="int" resultType="User">
+        select * from user where id = #{id};
+    </select>
+
+    <!-- 插入主键重复元素会报错，使用ignore可以忽略重复元素 -->
+    <insert id="addUser" parameterType="User">
+        insert ignore into user values (#{id}, #{username}, #{birthday}, #{sex}, #{address});
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id = #{id};
+    </update>
+
+    <delete id="deleteUser">
+        delete from user where id = #{id};
+    </delete>
+
+</mapper>
