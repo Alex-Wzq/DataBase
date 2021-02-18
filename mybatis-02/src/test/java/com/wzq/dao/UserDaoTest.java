@@ -3,6 +3,7 @@ package com.wzq.dao;
 import com.wzq.pojo.User;
 import com.wzq.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.Date;
@@ -13,6 +14,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class UserDaoTest {
+
+    static Logger logger = Logger.getLogger(UserDaoTest.class);
 
     @Test
     public void testGetUserList(){
@@ -43,9 +46,9 @@ public class UserDaoTest {
 
     @Test
     public void testGetUserById(){
+        logger.info("testGetUserById");
         SqlSession sqlSession = MybatisUtils.getSqlSession();
 
-        // 方式一：使用多
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         System.out.println(userMapper.getUesrById(41));
 

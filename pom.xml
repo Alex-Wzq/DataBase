@@ -19,6 +19,7 @@
         <mybatis.version>3.4.5</mybatis.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.10</lombok.version>
+        <log4j.version>1.2.12</log4j.version>
     </properties>
 
     <dependencies>
@@ -52,6 +53,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -65,13 +72,6 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
             <scope>runtime</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.12</version>
         </dependency>
 
     </dependencies>

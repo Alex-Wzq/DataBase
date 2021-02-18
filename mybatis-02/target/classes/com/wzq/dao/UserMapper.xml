@@ -13,7 +13,12 @@
         select * from user where username like "%"#{name}"%";
     </select>
 
-    <select id="getUesrById" parameterType="int" resultType="User">
+    <!-- 结果集映射，数据库列名和类属性名字不同 -->
+    <resultMap id="UserMap" type="User">
+        <result column="id" property="id"/>
+    </resultMap>
+
+    <select id="getUesrById" parameterType="int" resultMap="UserMap">
         select * from user where id = #{id};
     </select>
 
