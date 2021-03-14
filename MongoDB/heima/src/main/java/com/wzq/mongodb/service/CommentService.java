@@ -3,6 +3,13 @@ package com.wzq.mongodb.service;
 import com.wzq.mongodb.dao.CommentRepository;
 import com.wzq.mongodb.pojo.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +19,9 @@ public class CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     /**
      * 保存一个评论
@@ -59,6 +69,21 @@ public class CommentService {
     public Comment findCommentById(String id){
         //调用dao
         return commentRepository.findById(id).get();
+    }
+
+    public Page<Comment> findByParentid(String parentid, int current, int limit) {
+        return commentRepository.findByParentid(parentid, PageRequest.of(current, limit));
+    }
+
+    public Page<Comment> findByUserid(String userid, int current, int limit) {
+        return commentRepository.findByUserid(userid, PageRequest.of(current, limit));
+    }
+
+    public void updateCommentLikenum(String id) {
+        Query query = Query.query(Criteria.where("_id").is(id));
+        Update update = new Update();
+        update.inc("likenum");
+        mongoTemplate.updateFirst(query, update, "comment");
     }
 
 }
